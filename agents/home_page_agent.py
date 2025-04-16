@@ -1,6 +1,8 @@
 from utils import clean_html
 import requests
-def home_page(state, client, url, model_name):
+import asyncio
+import time
+def home_page(state, client, model_name):
     """
     Analyzes the HTML content of a given URL to identify and describe key sections of a website's home page.
 
@@ -24,7 +26,23 @@ def home_page(state, client, url, model_name):
         dict: The updated state dictionary, with the "sections" key containing a string
               describing the identified sections of the home page.
     """
+    print(f"\n\n==== HOME PAGE AGENT ====")
+    print(f"Url in state: {state['url']}")
+    print(f"Summary intent: {state['sum_recap_intent']}")
+    time.sleep(0.1)
 
+    # DEBUG: Add breakpoint before checking URL
+    #import pdb; pdb.set_trace()  # Breakpoint 5: Before checking URL in home_page_agent
+
+    if not state["url"]:
+        #url = "https://www.allbirds.com/?srsltid=AfmBOopnCLt7VtlnjnYo2RwW6k6mxo9jqsIAayMwWnF3O7Rt0asTtRtf"
+        print("URL in state is empty, using default URL")
+        state["url"]="https://www.allbirds.com/?srsltid=AfmBOopnCLt7VtlnjnYo2RwW6k6mxo9jqsIAayMwWnF3O7Rt0asTtRtf"
+    else:
+        print(f"Using URL from state: {state['url']}")
+
+    url=state["url"]
+    print(f"Final URL being used: {url}")
     response = requests.get(url)
     html_content = response.text
     html_content = clean_html(html_content)

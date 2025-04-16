@@ -12,7 +12,7 @@ __all__ = [
     "ask_question",
     "bs_map_agent",
     "human_node",
-    "text_content"
+    "text_content",
     "summary_agent",
     "summary_recap_intent",
     "create_img_content",

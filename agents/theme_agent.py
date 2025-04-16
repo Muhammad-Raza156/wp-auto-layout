@@ -152,5 +152,6 @@ def wordpress_theme(state, client, model_name):
 
     themes=response.text
     print(themes)
-    state["themes"]=json.loads(themes)
+    #state["themes"]=json.loads(themes)
+    state["themes"]=themes
     return state
